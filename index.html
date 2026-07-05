@@ -263,12 +263,13 @@
         .reveal {
             opacity: 0; /* Elemen disembunyikan awalnya */
             transform: translateY(50px); /* Posisi diturunkan 50 pixel */
-            transition: all 0.8s ease-out; /* Kecepatan dan gaya animasi */
+            /*transition: all 0.8s ease-out; /* Kecepatan dan gaya animasi */
         }
 
         .reveal.active {
             opacity: 1; /* Elemen dimunculkan */
             transform: translateY(0); /* Posisi dikembalikan ke tempat semula */
+            transition: all 0.8s ease-out;
         }
     </style>
 </head>
@@ -289,7 +290,7 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section id="beranda" class="hero">
+    <section id="beranda" class="hero reveal">
         <!-- GANTI HEADLINE DI SINI -->
         <h1>Kualitas Benang dan Kain Terbaik untuk Kebutuhan Industri Anda</h1>
         <p>Kami adalah produsen tekstil terkemuka yang memadukan teknologi modern dan material berkualitas tinggi untuk menghasilkan rajutan sempurna.</p>
@@ -314,7 +315,7 @@
     </section>
 
     <!-- PRODUK DAN LAYANAN -->
-    <section id="produk" class="section services">
+    <section id="produk" class="section services reveal">
         <h2 class="section-title">Produk Unggulan Kami</h2>
         <div class="grid-cards">
             <!-- Produk 1 -->
@@ -369,6 +370,11 @@
     </a>
 
     <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Animasi jalan saat 15% elemen sudah masuk layar
+        };
         // Membuat pengamat (observer) untuk mendeteksi elemen di layar
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -380,7 +386,7 @@
                     entry.target.classList.remove('active');
                 }
             });
-        });
+        }, observerOptions);
 
         // Mencari semua elemen yang memiliki class 'reveal'
         const hiddenElements = document.querySelectorAll('.reveal');
